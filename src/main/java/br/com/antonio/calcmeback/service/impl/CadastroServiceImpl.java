@@ -3,6 +3,7 @@ package br.com.antonio.calcmeback.service.impl;
 import br.com.antonio.calcmeback.model.Cadastro;
 import br.com.antonio.calcmeback.repository.CadastroRepository;
 import br.com.antonio.calcmeback.service.CadastroService;
+import br.com.antonio.calcmeback.service.exceptions.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,11 @@ public class CadastroServiceImpl implements CadastroService {
   public Cadastro getById(String id) {
     return this.cadastroRepository
         .findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Cadastro não existe!"));
+        .orElseThrow(
+            () -> new EntityNotFoundException(
+                "Não encontramos nenhum cadastro com este id: " + id
+            )
+        );
   }
 
   @Override
@@ -43,11 +48,14 @@ public class CadastroServiceImpl implements CadastroService {
 
   @Override
   public Cadastro put(Cadastro cadastro) {
+    this.getById(cadastro.getId());
     return this.cadastroRepository.save(cadastro);
   }
 
   @Override
   public void delete(String id) {
-    this.cadastroRepository.delete(getById(id));
+    this.getById(id);
+    this.cadastroRepository.delete(getById(id)
+    );
   }
 }

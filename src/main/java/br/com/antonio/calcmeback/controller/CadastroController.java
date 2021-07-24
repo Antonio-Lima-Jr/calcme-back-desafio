@@ -7,11 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Controlador responsável por receber as requisições e configurações de rotas
- * e encaminhar para a camada de regras de negócio.
+ * e encaminhar para a camada (service) regras de negócio .
  *
  * @author Antônio Lima Jr
  */
@@ -31,14 +32,13 @@ public class CadastroController {
     return ResponseEntity.ok(this.cadastroService.listAll());
   }
 
-  @GetMapping("/{id})")
+  @GetMapping("/{id}")
   public ResponseEntity<Cadastro> getById(@PathVariable String id) {
     return ResponseEntity.ok(this.cadastroService.getById(id));
   }
 
   @PostMapping
-  public ResponseEntity<Cadastro> create(@RequestBody Cadastro cadastro) {
-    System.out.println("teste");
+  public ResponseEntity<Cadastro> create(@Valid @RequestBody Cadastro cadastro) {
     return new ResponseEntity<>(
         this.cadastroService.create(cadastro),
         HttpStatus.CREATED
@@ -46,7 +46,7 @@ public class CadastroController {
   }
 
   @PutMapping
-  public ResponseEntity<Cadastro> put(@RequestBody Cadastro cadastro) {
+  public ResponseEntity<Cadastro> put(@Valid @RequestBody Cadastro cadastro) {
     return ResponseEntity.ok(this.cadastroService.put(cadastro));
   }
 
