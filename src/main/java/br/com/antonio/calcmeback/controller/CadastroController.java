@@ -20,12 +20,8 @@ import java.util.List;
 @RequestMapping("/cadastro")
 public class CadastroController {
 
-  private final CadastroServiceImpl cadastroService;
-
   @Autowired
-  public CadastroController(CadastroServiceImpl cadastroService) {
-    this.cadastroService = cadastroService;
-  }
+  private CadastroServiceImpl cadastroService;
 
   @GetMapping
   public ResponseEntity<List<Cadastro>> listAll() {

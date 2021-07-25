@@ -18,12 +18,8 @@ import java.util.List;
 @Service
 public class CadastroServiceImpl implements CadastroService {
 
-  private final CadastroRepository cadastroRepository;
-
   @Autowired
-  public CadastroServiceImpl(CadastroRepository cadastroRepository) {
-    this.cadastroRepository = cadastroRepository;
-  }
+  private CadastroRepository cadastroRepository;
 
   @Override
   public List<Cadastro> listAll() {
@@ -54,8 +50,6 @@ public class CadastroServiceImpl implements CadastroService {
 
   @Override
   public void delete(String id) {
-    this.getById(id);
-    this.cadastroRepository.delete(getById(id)
-    );
+    this.cadastroRepository.delete(getById(id));
   }
 }
