@@ -25,8 +25,12 @@ public class Cadastro {
   @NotNull(message = "O nome no cadastro nao pode ser null")
   @Length(min = 3, max = 50, message = "O nome deverá ter entre {min} e {max} caracteres")
   private String name;
-  @Email(message = "Não é um email válido")
+  @NotEmpty(message = "O email no cadastro não pode ser vazio")
+  @NotNull(message = "O email no cadastro nao pode ser null")
+  @Email(message = "Não é um email válido, formato válido: exemplo@email.com")
   private String email;
+  @NotEmpty(message = "O telefone no cadastro não pode ser vazio")
+  @NotNull(message = "O telefone no cadastro nao pode ser null")
   @Pattern(regexp = "\\d{9,11}", message = "O numero de telefone deve conter entre 9 e 11 caracteres numéricos")
   private String telefone;
 }
